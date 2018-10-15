@@ -1,264 +1,218 @@
+	var Unvalid_Expression="";
+	var valid_Expression=[];
+	var Final_Postfix=[];
+	var Final_Computed_Expression=[];
 
-var precedence=[];
 
-var ValidOperatorPrecedence=[];
-var j=0;
-var number="";
-var gotanswer=false;
-var finalnumber="";
-function a(){	
-		document.getElementById("1").addEventListener("click",function(){
-			finalnumber+=""+1;
-			document.getElementById("display").innerHTML+=1;
+	$("#1").click(function(){
+	Unvalid_Expression+=1;
+	$("h1").html(Unvalid_Expression);
+	})
+	$("#2").click(function(){
+	Unvalid_Expression+=2;
+	$("h1").html(Unvalid_Expression);
+	})
+	$("#3").click(function(){
+	Unvalid_Expression+=3;
+	$("h1").html(Unvalid_Expression);
+	})
+	$("#4").click(function(){
+	Unvalid_Expression+=4;
+	$("h1").html(Unvalid_Expression);
+	})
+	$("#5").click(function(){
+	Unvalid_Expression+=5;
+	$("h1").html(Unvalid_Expression);
+	})
+	$("#6").click(function(){
+	Unvalid_Expression+=6;
+	$("h1").html(Unvalid_Expression);
+	})
+	$("#7").click(function(){
+	Unvalid_Expression+=7;
+	$("h1").html(Unvalid_Expression);
+	})
+	$("#8").click(function(){
+	Unvalid_Expression+=8;
+	$("h1").html(Unvalid_Expression);
+	})
+	$("#9").click(function(){
+	Unvalid_Expression+=9;
+	$("h1").html(Unvalid_Expression);
+	})
+	$("#0").click(function(){
+	Unvalid_Expression+=0;
+	$("h1").html(Unvalid_Expression);
+	})
 
-			});
+	document.getElementById("+").addEventListener("click",function(){
+		var lastpos=Unvalid_Expression[Unvalid_Expression.length-1];
+	
+	if((lastpos!='*' && lastpos!='+' && lastpos!='/'&& lastpos!='-') && Unvalid_Expression!=""){
+		Unvalid_Expression+='+';
+		$("h1").html(Unvalid_Expression);	
+	}
+	})
 
-		document.getElementById("2").addEventListener("click",function(){
-			finalnumber+=""+2;
-			document.getElementById("display").innerHTML+=2;
+	document.getElementById("-").addEventListener("click",function(){
+			var lastpos=Unvalid_Expression[Unvalid_Expression.length-1];
+	
+	if((lastpos!='*' && lastpos!='+' && lastpos!='/'&& lastpos!='-') && Unvalid_Expression!=""){
+		Unvalid_Expression+='-';
+		$("h1").html(Unvalid_Expression);	
+	}
+	})
 
-			});
-		document.getElementById("3").addEventListener("click",function(){
-			finalnumber+=""+3;
-			document.getElementById("display").innerHTML+=3;
+	document.getElementById("*").addEventListener("click",function(){
+			var lastpos=Unvalid_Expression[Unvalid_Expression.length-1];
+	
+	if((lastpos!='*' && lastpos!='+' && lastpos!='/'&& lastpos!='-') && Unvalid_Expression!=""){
+		Unvalid_Expression+='*';
+		$("h1").html(Unvalid_Expression);	
+	}
+	})
 
-			});
-		document.getElementById("4").addEventListener("click",function(){
-			finalnumber+=""+4;
-			document.getElementById("display").innerHTML+=4;
+	document.getElementById("/").addEventListener("click",function(){
+			var lastpos=Unvalid_Expression[Unvalid_Expression.length-1];
+	
+	if((lastpos!='*' && lastpos!='+' && lastpos!='/'&& lastpos!='-') && Unvalid_Expression!=""){
+		Unvalid_Expression+='/';
+		$("h1").html(Unvalid_Expression);	
+	}
+	})
+	document.getElementById("cal").addEventListener("click",function(){
+			var lastpos=Unvalid_Expression[Unvalid_Expression.length-1];
+	
+	if((lastpos!='*' && lastpos!='+' && lastpos!='/'&& lastpos!='-') && Unvalid_Expression!=""){
+			Valid();
+		}
 
-			});
-		document.getElementById("5").addEventListener("click",function(){
-			finalnumber+=""+5;
-			document.getElementById("display").innerHTML+=5;
+	})
 
-			});
-		document.getElementById("6").addEventListener("click",function(){
-			finalnumber+=""+6;
-			document.getElementById("display").innerHTML+=6;
 
-			});
-		document.getElementById("7").addEventListener("click",function(){
-			finalnumber+=""+7;
-			document.getElementById("display").innerHTML+=7;
 
-			});
-		document.getElementById("8").addEventListener("click",function(){
-			finalnumber+=""+8;
-			document.getElementById("display").innerHTML+=8;
+	function Postfix_Evaluation(){
 
-			});
-		document.getElementById("9").addEventListener("click",function(){
-			finalnumber+=""+9;
-			document.getElementById("display").innerHTML+=9;
-
-			});
-		document.getElementById("0").addEventListener("click",function(){
-			finalnumber+=""+0;
-			document.getElementById("display").innerHTML+=0;
-
-			});
+	for(var i=0;i<Final_Postfix.length;i++){
+	if(Final_Postfix[i]!='*' && Final_Postfix[i]!='+' && Final_Postfix[i]!='-' && Final_Postfix[i]!='/'){
+	Final_Computed_Expression.push(Final_Postfix[i]);
+	}
+	else{
 		
-		document.getElementById("+").addEventListener("click",function(){
-			var pop=precedence[precedence.length-1];
+		for(var j=Final_Computed_Expression.length-1;j>=0;j--){
 			
-			console.log(pop);
-			if(finalnumber!="" && (pop!='*' || pop!='/' || pop!='-' || pop!='+' )){
-			finalnumber=parseInt(finalnumber);
-			precedence.push(finalnumber);
-			finalnumber="+";
-			precedence.push(finalnumber);			
-			finalnumber="";document.getElementById("display").innerHTML+="+";
-			}
-			});
-		document.getElementById("-").addEventListener("click",function(){
-			var pop=precedence[precedence.length-1];
 			
-			console.log(pop);
-
-			if(finalnumber!="" && (pop!='*' || pop!='/' || pop!='-' || pop!='+') ){
-				finalnumber=parseInt(finalnumber);
-			precedence.push(finalnumber);
-			finalnumber="-";
-			precedence.push(finalnumber);			
-			finalnumber="";
-			document.getElementById("display").innerHTML+="-";
-			}
-			});
-
-		document.getElementById("/").addEventListener("click",function(){
-			var pop=precedence[precedence.length-1];
-			
-			console.log(pop);
-
-			if(finalnumber!="" && (pop!='*' || pop!='/' || pop!='-' || pop!='+') ){
-				finalnumber=parseInt(finalnumber);
-			precedence.push(finalnumber);
-			finalnumber="/";
-			precedence.push(finalnumber);			
-			finalnumber="";
-			document.getElementById("display").innerHTML+="/";
-			}
-			});
-		document.getElementById("*").addEventListener("click",function(){
-			var pop=precedence[precedence.length-1];
-			
-			console.log(pop);
-
-			if(finalnumber!="" && (pop!='*' || pop!='/' || pop!='-' || pop!='+') ){
-				finalnumber=parseInt(finalnumber);
-			precedence.push(finalnumber);
-			finalnumber="*";
-			precedence.push(finalnumber);			
-			finalnumber="";
-			document.getElementById("display").innerHTML+="*";
-			}
-			});
-								
-document.getElementById("cal").addEventListener("click",function(){
-		finalnumber=parseInt(finalnumber);
-			precedence.push(finalnumber);
-				finalnumber=Answer();
-				ValidOperatorPrecedence=[];
-				precedence=[];
-				precedence.push(finalnumber);
-				document.getElementById("display").innerHTML=finalnumber;
-				;
-
-});
-			}	
-			
-
-function Answer(){
-
-	for( j=0;j<precedence.length;j++){
-		var ss="";
-		var k=j+1;
-		if(precedence[j]==1||precedence[j]==2||precedence[j]==3||precedence[j]==4||precedence[j]==5||precedence[j]==6||precedence[j]==7||
- 			precedence[j]==8||precedence[j]==9||precedence[j]==0){
-			ss=precedence[j]+"";
-			while(k<precedence.length && precedence[k]==1||precedence[k]==2||precedence[k]==3||precedence[k]==4||precedence[k]==5||precedence[k]==6||precedence[k]==7||
- 			precedence[k]==8||precedence[k]==9||precedence[k]==0){
+				if(Final_Postfix[i]=='*'){
+				Final_Computed_Expression[j-1]*=Final_Computed_Expression[j];
 				
-					ss=ss+""+precedence[k];
-				k++;
-				j=k+1;
-					
 			}
-			ValidOperatorPrecedence.push(parseInt(ss));
-		}
-		else {
-	ValidOperatorPrecedence.push(precedence[j]);
+			else if(Final_Postfix[i]=='+'){
+				Final_Computed_Expression[j-1]+=Final_Computed_Expression[j];
 			
+			}
+			else if(Final_Postfix[i]=='-'){
+				Final_Computed_Expression[j-1]-=Final_Computed_Expression[j];
+				
+			}
+			else if(Final_Postfix[i]=='/'){
+				Final_Computed_Expression[j-1]=Final_Computed_Expression[j-1]/Final_Computed_Expression[j];
+				
+			}
+			Final_Computed_Expression.pop();
+			break;
 		}
+	}
+	}
+	console.log(Final_Computed_Expression);
+	$("h1").html(Final_Computed_Expression[0]);
+	Unvalid_Expression="";
+	Unvalid_Expression=Final_Computed_Expression[0];
+	Final_Computed_Expression=[];
+	Final_Postfix=[];
+	valid_Expression=[];
+	}
 
-	}
-	var multicount=0;
-	for(var i=0;i<ValidOperatorPrecedence.length;i++){
-		if(ValidOperatorPrecedence[i]==="*"){
-			multicount++;
+	function Infix_To_Postfix() {
+	var Temp=[];
+	for(var i=0;i<valid_Expression.length;i++){
+		if(valid_Expression[i]!='+' && valid_Expression[i]!='-' && valid_Expression[i]!='*' && valid_Expression[i]!='/'){
+			Final_Postfix.push(valid_Expression[i]);
+
 		}
-	}
-	if(multicount>0){
-		for(var k=0;k<multicount;k++){
-			for(var i=0;i<ValidOperatorPrecedence.length;i++){
-				if(ValidOperatorPrecedence[i]=='*'){
-					ValidOperatorPrecedence[i]=ValidOperatorPrecedence[i-1]*ValidOperatorPrecedence[i+1];
-					ValidOperatorPrecedence[i-1]="ignore";
-					ValidOperatorPrecedence[i+1]="ignore";
-					ValidOperatorPrecedence=restore(ValidOperatorPrecedence);
+		else
+		{var flag=0;
+			for(var j=0;j<Temp.length;j++){
+				if(Temp[j]=='+' && valid_Expression[i]=='-' || Temp[j]=='-' && valid_Expression[i]=='+' || 
+				   Temp[j]=='*' && valid_Expression[i]=='/' || Temp[j]=='/' && valid_Expression[i]=='*' || 
+				   Temp[j]==valid_Expression[i]){
+				flag=1;
+				break;	
+				}}
+				if(flag==1){
+					for(var k=Temp.length-1;k>=0;k--){
+						Final_Postfix.push(Temp[k]);
+					}
+					Temp=[];
+					Temp.push(valid_Expression[i]);
+				}
+				else{
+					Temp.push(valid_Expression[i]);
+							
 				}
 			}
-	}}
-var div=0;
-	for(var i=0;i<ValidOperatorPrecedence.length;i++){
-		if(ValidOperatorPrecedence[i]==="/"){
-			div++;
+		
+		if(i==valid_Expression.length-1){
+			for(var k=Temp.length-1;k>=0;k--){
+						Final_Postfix.push(Temp[k]);
+					}
 		}
 	}
-	if(div>0){
-
-		for(var k=0;k<div;k++){
-			for(var i=0;i<ValidOperatorPrecedence.length;i++){
-				if(ValidOperatorPrecedence[i]=='/'){
-					ValidOperatorPrecedence[i]=ValidOperatorPrecedence[i-1]/ValidOperatorPrecedence[i+1];
-					ValidOperatorPrecedence[i-1]="ignore";
-					ValidOperatorPrecedence[i+1]="ignore";
-					ValidOperatorPrecedence=restore(ValidOperatorPrecedence);
-				}
-			}
-	}	
+	console.log(Final_Postfix);
+	Postfix_Evaluation();	
 	}
 
+	function Valid(){
+	console.log(Unvalid_Expression)
 
-var add=0;
-	for(var i=0;i<ValidOperatorPrecedence.length;i++){
-		if(ValidOperatorPrecedence[i]==="+"){
-			add++;
+
+
+
+var n=Unvalid_Expression;
+
+var s="";
+var i=0
+for(i=0;i<n.length;i++){
+if(n.charAt(i)!="*" && n.charAt(i)!="+" && n.charAt(i)!="-" && n.charAt(i)!="/"){
+s+=n.charAt(i);
+
 		}
-	}
-
-	if(add>0){
-
-		for(var k=0;k<add;k++){
-			for(var i=0;i<ValidOperatorPrecedence.length;i++){
-				if(ValidOperatorPrecedence[i]=='+'){
-					ValidOperatorPrecedence[i]=ValidOperatorPrecedence[i-1]+ValidOperatorPrecedence[i+1];
-					ValidOperatorPrecedence[i-1]="ignore";
-					ValidOperatorPrecedence[i+1]="ignore";
-					ValidOperatorPrecedence=restore(ValidOperatorPrecedence);
-				}
-			}
-	}	
-	}
-
-
-
-var sub=0;
-	for(var i=0;i<ValidOperatorPrecedence.length;i++){
-		if(ValidOperatorPrecedence[i]==="-"){
-			sub++;
+		else{
+			valid_Expression.push(parseInt(s));
+			valid_Expression.push(n.charAt(i));
+			s="";
 		}
+if(i==n.length-1){
+	valid_Expression.push(parseInt(s));
 	}
-	if(sub>0){
-
-		for(var k=0;k<sub;k++){
-			for(var i=0;i<ValidOperatorPrecedence.length;i++){
-				if(ValidOperatorPrecedence[i]=='-'){
-					ValidOperatorPrecedence[i]=ValidOperatorPrecedence[i-1]-ValidOperatorPrecedence[i+1];
-					ValidOperatorPrecedence[i-1]="ignore";
-					ValidOperatorPrecedence[i+1]="ignore";
-					ValidOperatorPrecedence=restore(ValidOperatorPrecedence);
-				}
-			}
-	}	
-	}
-
-document.getElementById("display").innerHTML=ValidOperatorPrecedence[0];
-return ValidOperatorPrecedence[0];
-}
-
-function restore(ValidOperatorPrecedence){
-	 var ValidOperatorPrecedence1=[]
-	for(var i=0;i<ValidOperatorPrecedence.length;i++){
-		if(ValidOperatorPrecedence[i]!="ignore" ){
-			ValidOperatorPrecedence1.push(ValidOperatorPrecedence[i]);
-		}
-	}
-	return ValidOperatorPrecedence1;
-}
-function reset(){
-// for(var i=0;i<precedence.length;i++){
-// 	precedence.pop();
-// }
-precedence=[];
-ValidOperatorPrecedence=[];
-var j=0;
-var number="";
-var i1=0;
-var finalnumber="";
-document.getElementById("display").innerHTML="";
-a();
 }
 
 
+
+
+
+
+
+
+	console.log(valid_Expression)
+	Infix_To_Postfix();
+	}
+
+
+		
+	function reset(){
+		valid_Expression=[];
+		Final_Computed_Expression=[];
+		Final_Postfix=[];
+		Unvalid_Expression="";
+		$("h1").html("");
+	}
