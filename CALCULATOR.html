@@ -4,33 +4,40 @@
 	<title>CALCULATOR</title>
 </head>
 <link rel="stylesheet" type="text/css" href="layout.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <link rel="stylesheet" type="text/css" href="bootstrap.css">
-<script type="text/javascript" src="brain.js"></script>
-<body><br><br>
-	<center><div>
-		<h1 id="display"></h1>
+
+<body style="background: #634D01;
+background: -webkit-linear-gradient(top left, #634D01, #100F3D);
+background: -moz-linear-gradient(top left, #634D01, #100F3D);
+background: linear-gradient(top left, #634D01, #100F3D);"><br><br>
+	<br><br><br><br><br><br><br><br><center><div>
+		<h1 id="display" style="color: yellow"></h1>
 		<br>
+
 		<button class="btn btn-primary" id="1" id="11">1</button>
-		<button class="btn btn-primary" id="2" id="22" onclick="trigger();">2</button>
-		<button class="btn btn-primary" id="3" id="33" onclick="trigger();">3</button>
-		<button class="btn btn-warning" onclick="trigger();"id="+">+</button>
-		<br>
-		<button class="btn btn-primary" id="4" id="11" onclick="trigger();">4</button>
-		<button class="btn btn-primary" id="5" id="22" onclick="trigger();">5</button>
-		<button class="btn btn-primary" id="6" id="33" onclick="trigger();">6</button>
-		<button class="btn btn-warning" onclick="trigger();" id="-">-</button>
-		<br>
-		<button class="btn btn-primary" id="7" id="11" onclick="trigger();">7</button>
-		<button class="btn btn-primary" id="8" id="22" onclick="trigger();">8</button>
-		<button class="btn btn-primary" id="9" id="33" onclick="trigger();">9</button>
-		<button class="btn btn-warning" onclick="trigger();" id="*">*</button>
-		<br>
-		<button class="btn btn-danger" onclick="reset();">RESET</button>
-		<button class="btn btn-primary" id="0" id="numbers" onclick="trigger();">0</button>
-		<button class="btn btn-success" id="cal" >CAL</button>
-		<button class="btn btn-warning" onclick="trigger();" id="/">/</button>
-
+		<button class="btn btn-primary" id="2" id="22" > 2 </button>
+		<button class="btn btn-primary" id="3" id="33"> 3 </button>
+		<button class="btn btn-warning" id="+">+</button>
+		<br>		<br>
+		<button class="btn btn-primary" id="4" id="11" > 4 </button>
+		<button class="btn btn-primary" id="5" id="22" >5</button>
+		<button class="btn btn-primary" id="6" id="33" >6</button>
+		<button class="btn btn-warning"  id="-">-</button>
+		<br><br>
+		<button class="btn btn-primary" id="7" id="11">7</button>
+		<button class="btn btn-primary" id="8" id="22">8</button>
+		<button class="btn btn-primary" id="9" id="33" >9</button>
+		<button class="btn btn-warning" id="*">*</button>
+		<br><br>
+		<button class="btn btn-danger" onclick="reset();">R</button>
+		<button class="btn btn-primary" id="0" id="numbers" >0</button>
+		<button class="btn btn-danger"  onclick="D();">D</button>
+		<button class="btn btn-warning" id="/">/</button>
+		<br><br>
+		<button class="btn btn-success" id="cal" style="width: 150px;">Calculate</button>
+		
 	</div></center>
-
+<script type="text/javascript" src="Brain2.js"></script>
 </body>
 </html>
