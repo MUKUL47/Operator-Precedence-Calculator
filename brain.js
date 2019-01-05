@@ -132,45 +132,42 @@
 	valid_Expression=[];
 	}
 
-	function Infix_To_Postfix() {
-	var Temp=[];
+	function D(){
+		if( Unvalid_Expression.length>1 ) { Unvalid_Expression = Unvalid_Expression.substring(0,Unvalid_Expression.length-1) }
+		else Unvalid_Expression = "";
+		$("h1").html(Unvalid_Expression);	
+	}
+
+	function Infix_To_Postfix() {console.log(Final_Postfix);
+	var OP=[];
 	for(var i=0;i<valid_Expression.length;i++){
 		if(valid_Expression[i]!='+' && valid_Expression[i]!='-' && valid_Expression[i]!='*' && valid_Expression[i]!='/'){
 			Final_Postfix.push(valid_Expression[i]);
 
 		}
 		else
-		{var flag=0;
-			for(var j=0;j<Temp.length;j++){
-				if(Temp[j]=='+' && valid_Expression[i]=='-' || Temp[j]=='-' && valid_Expression[i]=='+' || 
-				   Temp[j]=='*' && valid_Expression[i]=='/' || Temp[j]=='/' && valid_Expression[i]=='*' || 
-				   Temp[j]==valid_Expression[i]){
-				flag=1;
-				break;	
-				}}
-				if(flag==1){
-					for(var k=Temp.length-1;k>=0;k--){
-						Final_Postfix.push(Temp[k]);
-					}
-					Temp=[];
-					Temp.push(valid_Expression[i]);
-				}
-				else{
-					Temp.push(valid_Expression[i]);
-							
-				}
+		{
+			while(OP.length > 0 && priority(valid_Expression[i]) <= priority(OP[OP.length-1])){
+				Final_Postfix.push(OP.pop());
+
 			}
-		
-		if(i==valid_Expression.length-1){
-			for(var k=Temp.length-1;k>=0;k--){
-						Final_Postfix.push(Temp[k]);
-					}
+			OP.push(valid_Expression[i]);
 		}
 	}
-	console.log(Final_Postfix);
-	Postfix_Evaluation();	
-	}
+	while(OP.length > 0) { Final_Postfix.push(OP.pop()); }
 
+	Postfix_Evaluation();	
+
+	}
+	function priority(OP){
+		switch(OP){
+            case '+' : 
+            case '-' : return 1;
+            case '*' : 
+            case '/' : return 2;
+        }
+	}
+	
 	function Valid(){
 	console.log(Unvalid_Expression)
 
@@ -195,12 +192,6 @@ if(i==n.length-1){
 	valid_Expression.push(parseInt(s));
 	}
 }
-
-
-
-
-
-
 
 
 	console.log(valid_Expression)
